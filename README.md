@@ -15,7 +15,7 @@
 애초에 ts인 redux, 패키지 내부에서 d.ts를 제공하는 axios, @types 패키지가 별도로 존재하는 react, node, express, jquery로 구분됨. @types는 DefinitelyTyped라는 프로젝트로, 커뮤니티에서 라이브러리 타이핑을 제공하는 것.
 
 # 기본 지식
-- 메인 룰: <mark style='background-color: #ffd33d'>typescript는 최종적으로 javascript로 변환된다.</mark> 순전한 typescript 코드를 돌릴 수 있는 것은 deno이나 대중화되지가 않았음. 브라우저, 노드는 모두 js 파일을 실행한다.
+- 메인 룰: typescript는 최종적으로 javascript로 변환된다. 순전한 typescript 코드를 돌릴 수 있는 것은 deno이나 대중화되지가 않았음. 브라우저, 노드는 모두 js 파일을 실행한다.
 - typescript는 언어이자 컴파일러(tsc)이다. 컴파일러는 ts 코드를 js로 바꿔준다.
 - tsc는 tsconfig.json(tsc --init 시 생성)에 따라 ts 코드를 js(tsc 시 생성)로 바꿔준다. 인풋인 ts와 아웃풋인 js 모두에 영향을 끼치므로 tsconfig.json 설정을 반드시 봐야한다.
 - 단순히 타입 검사만 하고싶다면 tsc --noEmit 하면 된다.
@@ -23,6 +23,8 @@
 - ts 파일을 실행하는 게 아니라 결과물인 js를 실행해야 한다.
 - 에디터가 필수가 됨. VS Code나 웹스톰 반드시 필요. 메모장으로 코딩 불가능한 지경에 이름.
 
+## 타입스크립트로 프로젝트 진행 시 필수 절차!!
+ - npm init -y => npm i typescript => tsc --init
 ## ts 문법
 - 기본적으로 변수, 속성, 매개변수, 리턴값에 타입이 붙었다고 생각하면 됨.
 ```typescript
@@ -35,7 +37,7 @@ const obj: { lat: number, lon: number } = { lat: 37.5, lon: 127.5 };
 ```typescript
 const z: {} = 5;
 ```
-- ts가 추론해주는 타입이 있는데 이런 건 그냥 그대로 사용하면 됨. ts가 추론하지 못하는 경우에만 직접 타이핑할 것.
+- ts가 추론해주는 타입이 있는데 이런 건 그냥 그대로 사용하면 됨. ts가 추론하지 못하는 경우에만 직접 타이핑할 것. 타입스크립트를 믿어라!!
 ```typescript
 const a = 5;
 const b = '3';
@@ -142,9 +144,11 @@ run(ODirection.Right);
 ```typescript
 type A = { a: string };
 const a: A = { a: 'hello' };
+간단한 거 할 떄 타입.
 
 interface B { a: string }
 const b: B = { a: 'hello' };
+상속, 객체지향 등 할 때 인터페이스.
 ```
 - union, intersection
 ```typescript
@@ -160,11 +164,11 @@ type B = {
     b: string;
 }
 
-const aa: A | B = { a: 'hello', b: 'world' };
-const bb: A & B = { a: 'hello', b: 'world' };
+const aa: A | B = { a: 'hello', b: 'world' }; 하나만 만족하면 된다.
+const bb: A & B = { a: 'hello', b: 'world' }; 모두 만족해야 한다.
 
 ```
-- interface끼리는 서로 합쳐짐.
+- interface끼리는 서로 합쳐짐. 인터페이스를 많이 사용하는군,,,
 ```typescript
 interface A { a: string }
 interface A { b: string }
