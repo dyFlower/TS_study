@@ -320,3 +320,64 @@ function 햄수(x: Car | Bike) {
     console.log('Car타입');
   }
 }
+
+
+// 함수에서 never.. return값이 없어야함, endpoint 없어야함(끝나지 않는 함수)
+//왜 알아야함? 가끔 내가 코드 이상하게 짜면 등장함. 쓸일은 없을듯??
+// 1.이상한 narrowing / 2.어떤 함수표현식은 return타입이 자동으로 never
+function 햠수(): never {
+  //   throw new Error();
+  while (true) {}
+}
+
+class User {
+  name: string;
+  private familyName: string = 'kim';
+  constructor(a) {
+    //constructor를 쓰는 이유?? 파라미터 지정 가능
+    this.name = a + this.familyName;
+  }
+  이름변경함수() {
+    this.familyName = 'park'; //클래스내에서 함수로는 변경 가능
+  }
+}
+let 유저1 = new User('도영');
+//도영kim
+
+class Person1 {
+  constructor(public name: string) {}
+}
+
+class User2 {
+  protected x = 10;
+}
+class NewUser extends User2 {
+  //protected는 상속시에도 사용이 가능하다. private에서는 불가능!
+  doThis() {
+    this.x = 20;
+  }
+}
+
+class User3 {
+  static x = 10; // 부모class에 직접 부여되어서 자식에게 물려주지 않음 ex) User.x 가능
+  y = 20;
+}
+let 자식 = new User2();
+
+class Userr {
+  private static x = 10;
+  public static y = 20;
+
+  addOne(a: number): number {
+    Userr.x += a;
+    return Userr.x;
+  }
+  printX(): void {
+    console.log(Userr.x);
+  }
+}
+let Userr1 = new Userr();
+
+Userr1.addOne(3); //이렇게 하면 x가 3 더해져야함
+Userr1.addOne(4); //이렇게 하면 x가 4 더해져야함
+Userr1.printX(); //이렇게 하면 콘솔창에 x값이 출력되어야함
