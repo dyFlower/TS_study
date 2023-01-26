@@ -381,3 +381,40 @@ let Userr1 = new Userr();
 Userr1.addOne(3); //이렇게 하면 x가 3 더해져야함
 Userr1.addOne(4); //이렇게 하면 x가 4 더해져야함
 Userr1.printX(); //이렇게 하면 콘솔창에 x값이 출력되어야함
+
+//제네릭
+interface LengthCheck {
+  length: number;
+}
+function 흠수<T extends LengthCheck>(x: T) {
+  return x.length;
+}
+let a = 흠수<string>('100');
+// let a = 흠수([4,2])
+// let b = 흠수(['4','2'])
+
+function 렝스<T extends string | string[]>(x: T): void {
+  console.log(x.length);
+}
+렝스<string>('hello');
+렝스<string[]>(['kim', 'park']);
+
+interface Animal {
+  name: string;
+  age: number;
+}
+let data = '{"name" : "dog", "age" : 1 }';
+function 흑수<T>(data: string): T {
+  return JSON.parse(data);
+}
+let result = 흑수<Animal>(data);
+console.log(result);
+
+class Person2<T> {
+  name;
+  constructor(a: T) {
+    this.name = a;
+  }
+}
+let c = new Person2<string>('어쩌구');
+c.name; //any 타입이 되었넹
