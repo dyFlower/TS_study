@@ -418,3 +418,111 @@ class Person2<T> {
 }
 let c = new Person2<string>('어쩌구');
 c.name; //any 타입이 되었넹
+
+// tuple
+const food: [string, number, boolean] = ['치즈와퍼', 4500, true];
+let arr: [string, number, ...boolean[]] = ['동서녹차', 4000, true, false, true, true, false, true];
+function 헴수(...a: [string, boolean, ...(string | number)[]]) {}
+
+function 분류기(...params: (string | number)[]) {
+  let result: [string[], number[]] = [[], []];
+  params.forEach((v) => {
+    if (typeof v === 'string') {
+      result[0].push(v);
+    } else {
+      result[1].push(v);
+    }
+  });
+  return result;
+}
+
+let 이름: string = 'kim';
+let 나이 = 20;
+interface Person {
+  name: string;
+}
+let 사람: Person = { name: 'park' };
+
+interface StringOnly {
+  age: number;
+  [key: string]: string | number;
+}
+let user: StringOnly = {
+  name: 'kim',
+  age: 20,
+  location: 'seoul',
+};
+
+interface 시그니처 {
+  [key: string]: string | number;
+}
+let obj1: 시그니처 = {
+  model: 'k5',
+  brand: 'kia',
+  price: 6000,
+  year: 2030,
+  date: '6월',
+  percent: '5%',
+  dealer: '김차장',
+};
+
+interface 리커시브 {
+  'font-size': number;
+  [key: string]: 리커시브 | number;
+}
+let obj2 = {
+  'font-size': 10,
+  secondary: {
+    'font-size': 12,
+    third: {
+      'font-size': 14,
+    },
+  },
+};
+
+interface Personn {
+  age: number;
+  name: string;
+}
+type PersonKeys = keyof Person; //'age'| 'name'
+
+//타입 변환기
+type 변환용 = {
+  color: boolean;
+  model: boolean;
+  price: boolean | number;
+};
+type 변환기<T> = {
+  [key in keyof T]: string;
+};
+
+type newType = 변환기<변환용>;
+
+type Bus = {
+  color: string;
+  model: boolean;
+  price: number;
+};
+
+type busType<T> = {
+  [key in keyof T]: string | number;
+};
+type newBus = busType<Bus>;
+
+//조건문으로 타입만들기
+type Age<T> = T extends string ? string : unknown;
+
+let aa: Age<string>;
+let a2: Age<number>; //unknown
+
+type FirstItem<T> = T extends any[] ? T[0] : any;
+
+type 타입추출<T> = T extends (infer R)[] ? R : unknown;
+type abc = 타입추출<string[]>; // R이 string이 되는구망! R이 위치하는 곳의 타입을 뽑아낸다.
+
+type FirstCheck<T> = T extends [string, ...any] ? T[0] : unknown;
+
+type 타입뽑기<T> = T extends (x: infer R) => void ? R : any;
+type asdf = 타입뽑기<(x: number) => void>; //이러면 number가 이 자리에 남음
+type asdfd = 타입뽑기<(x: string) => void>; //이러면 string이 이 자리에 남음
+
